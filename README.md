@@ -27,12 +27,19 @@ for face stored in directory when two images per person are trained.
 ### What steps you have to follow??
 - Create a `TrainingImage` folder in a project.
 - Open a `AMS_Run.py` and change the all paths with your system path
+- install xamp server for data base
+- create a user `username: ali` and `password: 123`
+- create following db's: `Face_reco_DB`, `manually_fill_attendance` and `userdata`
 - Run `setup.exe`.
 
 ### Project Structure
 - First an admin should be login into the system and then it enters data for enrollment.
+  `username: ali` `password: 123`
 - After run you need to give your face data to system so enter your ID and name in box than click on `Take Images` button.
-- It will collect 200 images of your faces, it save a images in `TrainingImage` folder
+- It will collect 70 images of your faces, it save a images in `TrainingImage` folder
+<br />
+  ![This is Dataset]()
+
 - After that we need to train a model(for train a model click on `Train Image` button.
 - It will take 5-10 minutes for training(for 10 person data).
 - After training click on `Automatic Attendance` ,it can fill attendace by your face using our trained model (model will save in `TrainingImageLabel` )
