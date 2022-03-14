@@ -1,4 +1,4 @@
-![This is Image](https://miro.medium.com/max/1400/1*PDA9zADqD9qqCu-CmJ9Ddw.gif)
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/automatic_attendance_screen.png)
 # Automation Face Recognization Based Attandance System
 Face recognition system is very useful in life applications especially in security
 control systems. The airport protection system uses face recognition to identify suspects and
@@ -27,25 +27,41 @@ for face stored in directory when two images per person are trained.
 ### What steps you have to follow??
 - Create a `TrainingImage` folder in a project.
 - Open a `AMS_Run.py` and change the all paths with your system path
-- install xamp server for data base
+- install wampserver for data base
 - create a user `username: ali` and `password: 123`
 - create following db's: `Face_reco_DB`, `manually_fill_attendance` and `userdata`
 - Run `setup.exe`.
 
 ### Project Structure
-- First an admin should be login into the system and then it enters data for enrollment.
+* First an admin should be login into the system and then it enters data for enrollment.
   `username: ali` `password: 123`
-- After run you need to give your face data to system so enter your ID and name in box than click on `Take Images` button.
-- It will collect 70 images of your faces, it save a images in `TrainingImage` folder
-<br />
-  ![This is Dataset]()
+ ![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/admin_login_screen.png)
+ 
+* After run you need to give your face data to system so enter your ID and name in box than click on `Take Images` button.
+ ![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/dashboard_enter_data_screen.png)
+ 
+* It will collect 70 images of your faces, it save a images in `TrainingImage` folder
 
-- After that we need to train a model(for train a model click on `Train Image` button.
-- It will take 5-10 minutes for training(for 10 person data).
-- After training click on `Automatic Attendance` ,it can fill attendace by your face using our trained model (model will save in `TrainingImageLabel` )
-- it will create `.csv` file of attendance according to time & subject.
-- You can store data in database (install wampserver),change the DB name according to your in `AMS_Run.py`.
-- `Manually Fill Attendace` Button in UI is for fill a manually attendance (without facce recognition),it's also create a `.csv` and store in a database.
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/taking_dataset.png)
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/save_dataset_screen.png)
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/dataset.png)
+
+* After that we need to train a model(for train a model click on `Train Image` button.
+* It will take 5-10 minutes for training(for 10 person data).
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/train_model_screen.png)
+
+* After training click on `Automatic Attendance` ,it can fill attendace by your face using our trained model (model will save in `TrainingImageLabel`)
+* it will create `.csv` file of attendance according to time & subject.
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/automatic_attendance_screen.png)
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/automatic_attendance_filled_screen.png)
+* You can store data in database (install wampserver),change the DB name according to your in `AMS_Run.py`.
+
+* Manually Fill Attendace` Button in UI is for fill a manually attendance (without facce recognition),it's also create a `.csv` and store in a database.
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/manually.png)
+
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/manually1.png)
+![This is Image](https://github.com/rizwanch786/CS570_AMS/blob/master/ScreenShots/Manually_filled_screen.png)
+
 - Then for quit you click on X on the top right corner.
 
 ### Notes
