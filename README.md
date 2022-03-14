@@ -1,13 +1,29 @@
-##  Attendance Management system using Face👦🏻👧 Recognition 
+![This is Image](https://miro.medium.com/max/1400/1*PDA9zADqD9qqCu-CmJ9Ddw.gif)
+# Automation Face Recognization Based Attandance System
+Face recognition system is very useful in life applications especially in security
+control systems. The airport protection system uses face recognition to identify suspects and
+FBI (Federal Bureau of Investigation) uses face recognition for criminal investigations. In our
+proposed approach, firstly, video framing is performed by activating the camera through a user-
+friendly interface. The face ROI (Regions of Interest) is detected and segmented from the video
+frame by using LBPH algorithm. In the pre-processing stage, scaling of the size of images is
+performed if necessary, in order to prevent loss of information. The median filtering is applied
+to remove noise followed by conversion of color images to grayscale images. After that,
+contrast-limited adaptive histogram equalization (CLAHE) is implemented on images to
+enhance the contrast of images. In face recognition stage, enhanced local binary pattern (LBP)
+and is applied in order to extract the features from facial images. In our proposed approach, the
+enhanced local binary pattern outperforms the original LBP by reducing the illumination effect
+and increasing the recognition rate. Next, the features extracted from the test images are
+compared with the features extracted from the training images. The facial images are then
+classified and recognized based on the best result obtained from the combination of algorithm,
+enhanced LBP. Finally, the attendance of the recognized student will be marked and saved in
+the excel file as well as in database. The student who is not registered will also be able to
+register on the spot and teacher would also not mark his/her attendance. The average accuracy
+of recognition is 100 % for good quality images, 94.12 % of low-quality images and 95.76 %
+for face stored in directory when two images per person are trained.
 
-### Code Requirements
-- Python 3.8(install from official site)
-- Pycharm (latest Version)
-- Opencv(`pip install opencv-python`)
-- Tkinter(Available in python)
-- PIL (`pip install Pillow`)
-- Pandas(`pip install pandas`)
-
+## The repository includes:
+* Source Code
+* GUI Screen Shoots
 ### What steps you have to follow??
 - Create a `TrainingImage` folder in a project.
 - Open a `AMS_Run.py` and change the all paths with your system path
