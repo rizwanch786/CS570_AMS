@@ -24,7 +24,22 @@ for face stored in directory when two images per person are trained.
 ## The repository includes:
 * Source Code
 * GUI Screen Shoots
-### What steps you have to follow??
+## What steps you have to follow??
+### Step 01 : Requirements
+* **Clone the Project**
+``` [https://github.com/rizwanch786/CS570_AMS](https://github.com/rizwanch786/CS570_AMS) ```
+* **Create Virtual Environment**
+
+``` virtualenv venv ```
+
+* **Activate Virtual environment**
+
+``` source venv/Scripts/activate ```
+
+* **Pip the requirements.txt**
+
+ ```pip install -r requirements.txt```
+ 
 - Create a `TrainingImage` folder in a project.
 - Open a `AMS_Run.py` and change the all paths with your system path
 - install wampserver for data base
