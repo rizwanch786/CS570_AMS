@@ -35,14 +35,14 @@ class Registration:
         self.Admin_login.place(x=70, y=80)
 
         # Creat Labels
-        self.first_name = Label(self.frame_registration, text = "First Name", bg = "white", font = ("Goudy old style", 15, "bold"), fg = "gray")
-        self.last_name = Label(self.frame_registration, text = "Last Name", bg = "white", font = ("Goudy old style", 15, "bold"), fg = "gray")
-        self.contact_no = Label(self.frame_registration, text = "Contact No.", bg = "white", font = ("Goudy old style", 15, "bold"), fg = "gray")
-        self.email = Label(self.frame_registration, text = "Email", bg = "white", font = ("Goudy old style", 15, "bold"), fg = "gray")
-        self.select_security_question = Label(self.frame_registration, text = "Security Quesions", bg = "white", font = ("Goudy old style", 15, "bold"), fg = "gray")
-        self.security_answer = Label(self.frame_registration, text = "Security Answer", font = ("Goudy old style", 15, "bold"), fg = "gray", bg = "white")
-        self.password_0 = Label(self.frame_registration, text = "Password", bg = "white", font = ("Goudy old style", 15, "bold"), fg = "gray")
-        self.password_1 = Label(self.frame_registration, text = "Confirm Password", bg = "white", font = ("Goudy old style", 15, "bold"), fg = "gray")
+        self.first_name = Label(self.frame_registration, text = "First Name", bg = "white", font = ("Goudy old style", 12, "bold"), fg = "gray")
+        self.last_name = Label(self.frame_registration, text = "Last Name", bg = "white", font = ("Goudy old style", 12, "bold"), fg = "gray")
+        self.contact_no = Label(self.frame_registration, text = "Contact No.", bg = "white", font = ("Goudy old style", 12, "bold"), fg = "gray")
+        self.email = Label(self.frame_registration, text = "Email", bg = "white", font = ("Goudy old style", 12, "bold"), fg = "gray")
+        self.select_security_question = Label(self.frame_registration, text = "Security Quesions", bg = "white", font = ("Goudy old style", 12, "bold"), fg = "gray")
+        self.security_answer = Label(self.frame_registration, text = "Security Answer", font = ("Goudy old style", 12, "bold"), fg = "gray", bg = "white")
+        self.password_0 = Label(self.frame_registration, text = "Password", bg = "white", font = ("Goudy old style", 12, "bold"), fg = "gray")
+        self.password_1 = Label(self.frame_registration, text = "Confirm Password", bg = "white", font = ("Goudy old style", 12, "bold"), fg = "gray")
 
         # Pack the Labels
         self.first_name.place(x = 60, y = 150)
@@ -64,8 +64,8 @@ class Registration:
         self.txt_sequrityQuestion["values"] = ("Select", "Your Best Teacher Name", "Your Birth Place", "Your Best Friend")
 
         self.txt_securityAnswer = Entry(self.frame_registration, font=("times new roman", 15), bg="lightgray")
-        self.txt_password = Entry(self.frame_registration, font=("times new roman", 15), bg="lightgray")
-        self.txt_confirmPassword = Entry(self.frame_registration, font=("times new roman", 15), bg="lightgray")
+        self.txt_password = Entry(self.frame_registration, font=("times new roman", 15), bg="lightgray",  show = "*")
+        self.txt_confirmPassword = Entry(self.frame_registration, font=("times new roman", 15), bg="lightgray",  show = "*")
 
         # Pack the Entries
         self.txt_firstname.place(x=60, y=180, height=25, width=160)
@@ -116,7 +116,7 @@ class Registration:
         # Agreed = self.checkbox_var.get()
         # try:
         #     global cursor
-        #     connection = pymysql.connect(host='localhost', user='ali', password='123', db='userdata')
+        #     connection = pymysql.connect(host='localhost', user='ali', password='123', db='Registration')
         #     cursor = connection.cursor()
         # except Exception as e:
         #     messagebox.showerror('', e) 

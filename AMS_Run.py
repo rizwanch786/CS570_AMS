@@ -5,7 +5,6 @@ import csv
 import os
 import numpy as np
 from PIL import Image,ImageTk
-import pyttsx3
 #import PIL
 #from PIL import ImageTk
 # from PIL import Image
@@ -166,7 +165,7 @@ def manually_fill():
             def create_csv():
                 import csv
                 cursor.execute("select * from " + DB_table_name + ";")
-                csv_name='C:/Users/Muhammad Rizwan/PycharmProjects/CS570_AMS/Attendance/Manually Attendance/'+DB_table_name+'.csv'
+                csv_name='C:/Users/rizwa/Documents/CS570/CS570_AMS/Attendance/'+DB_table_name+'.csv'
                 with open(csv_name, "w") as csv_file:
                     csv_writer = csv.writer(csv_file)
                     csv_writer.writerow([i[0] for i in cursor.description])  # write headers
@@ -228,7 +227,7 @@ def manually_fill():
 
             def attf():
                 import subprocess
-                subprocess.Popen(r'explorer /select,"C:/Users/Muhammad Rizwan/PycharmProjects/CS570_AMS/Attendance/Manually Attendance/-------Check atttendance-------"')
+                subprocess.Popen(r'explorer /select,"C:/Users/rizwa/Documents/CS570/CS570_AMS/Attendance/Manually Attendance/-------Check atttendance-------"')
             attf = tk.Button(MFW,  text="Check Sheets",command=attf,fg="#d77337", bd = 0, bg="white", activebackground = "Red" ,font=('times new roman', 20, ' underline '))
             attf.place(x=250, y=270, height = 40, width = 200)
 
@@ -445,17 +444,14 @@ def subjectchoose():
                 
                 cam.release()
                 cv2.destroyAllWindows()
-                speaker = pyttsx3.init()
-                speaker.say(M)
-                speaker.runAndWait()
-
+              
 
                 import csv
                 import tkinter
                 root = tkinter.Tk()
                 root.title("Attendance of " + Subject)
                 root.configure(background='snow')
-                cs = 'C:/Users/Muhammad Rizwan/PycharmProjects/CS570_AMS/' + fileName
+                cs = 'C:/Users/rizwa/Documents/CS570/CS570_AMS/' + fileName
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
@@ -533,7 +529,7 @@ def admin_panel():
                 root.title("Student Details")
                 root.configure(background='snow')
 
-                cs = 'C:/Users/Muhammad Rizwan/PycharmProjects/CS570_AMS/StudentDetails/StudentDetails.csv'
+                cs = 'C:/Users/rizwa/Documents/CS570/CS570_AMS/StudentDetails/StudentDetails.csv'
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
                     r = 0
@@ -566,12 +562,12 @@ def admin_panel():
     title_for_check_registration = tk.Label(win, text="Check Register Students", font="Impact 30", fg="#d77337", bg="white")
     title_for_check_registration.place(x = 30, y = 30)
     un = tk.Label(win, text="Enter username", fg="gray", bg="white",
-                   font=("Goudy old style", 25, "bold"))
-    un.place(x=30, y=100)
+                   font=("Goudy old style", 20, "bold"))
+    un.place(x=25, y=100)
 
     pw = tk.Label(win, text="Enter password", fg="gray", bg="white",
-                   font=("Goudy old style", 25, "bold"))
-    pw.place(x=30, y=200)
+                   font=("Goudy old style", 20, "bold"))
+    pw.place(x=25, y=200)
 
     def c00():
         un_entr.delete(first=0, last=22)
@@ -694,10 +690,10 @@ txt2 = tk.Entry(home_frame, bg="lightgray", font=('times new roman', 20, ' bold 
 txt2.place(x=50, y=200, height = 40, width = 350)
 
 clearButton = tk.Button(home_frame, text="Clear",bd = 0, command=clear, fg="#d77337",bg="white", activebackground = "Red",font=('times new roman', 15, ' bold '))
-clearButton.place(x=420, y=105)
+clearButton.place(x=420, y=120)
 
 clearButton1 = tk.Button(home_frame, text="Clear",command=clear1, fg="#d77337",bg="white", activebackground = "Red",font=('times new roman', 15, ' bold '), bd = 0)
-clearButton1.place(x=420, y=175)
+clearButton1.place(x=420, y=200)
 
 AP = tk.Button(home_frame, bd = 0, text="Check Register students",command=admin_panel, fg="#d77337",bg="white" , activebackground = "Red" ,font=('times new roman', 15, ' underline '))
 AP.place(x=100, y=240)

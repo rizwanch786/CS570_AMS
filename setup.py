@@ -2,16 +2,11 @@ from tkinter import*
 from tkinter import messagebox
 from PIL import ImageTk
 import os
-import pyttsx3
 from tkinter import ttk
 root = Tk()
 #from AMS_Run import window
 class Login:
     def __init__(self, root):
-        # # Welcome Voice
-        # speaker = pyttsx3.init()
-        # speaker.say('Login')
-        # speaker.runAndWait()
         self.root = root
         self.root.iconbitmap('AMS.ico')
         self.root.title("Login Window")
@@ -28,11 +23,11 @@ class Login:
         frame_login.place(x = 80, y = 150, height = 500, width = 500)
         title = Label(frame_login, text = "Login Here", font = "Impact 35 bold", fg = "#d77337", bg = "white").place(x = 80, y = 20)
         Admin_login = Label(frame_login, text = "Admin Login Area", font = ("Goudy old style", 15, "bold"), fg = "#d25d17", bg = "white").place(x = 80, y = 80)
-        user_name = Label(frame_login, text = "Username/Email", font = ("Goudy old style", 15, "bold"), fg = "gray", bg = "white").place(x = 80, y = 110)
+        user_name = Label(frame_login, text = "Username/Email", font = ("Goudy old style", 12, "bold"), fg = "gray", bg = "white").place(x = 80, y = 120)
         self.txt_username = Entry(frame_login, font = ("times new roman", 15), bg = "lightgray")
         self.txt_username.place(x = 80, y = 150, height = 35, width = 350)
 
-        pass_word = Label(frame_login, text = "Password", font = ("Goudy old style", 15, "bold"), fg = "gray", bg = "white").place(x = 80, y = 190)
+        pass_word = Label(frame_login, text = "Password", font = ("Goudy old style", 12, "bold"), fg = "gray", bg = "white").place(x = 80, y = 200)
         self.txt_password = Entry(frame_login, font = ("times new roman", 15), bg = "lightgray", show = "*")
         self.txt_password.place(x = 80, y = 230, height = 35, width = 350)
 
