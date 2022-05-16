@@ -101,9 +101,8 @@ class Registration:
             messagebox.showerror("Error", "Passwords are different", parent = self.root)
         else:
             messagebox.showinfo("Welcome", f"Thanks for Registration {self.txt_firstname.get()} {self.txt_lastname.get()}")
-            f = open("Data.txt", "w")
-            f.write(f"{self.txt_firstname.get()}\t{self.txt_lastname.get()}\t{self.txt_contact.get()}\t{self.txt_email.get()}\t{self.txt_sequrityQuestion.get()}\t{self.txt_securityAnswer.get()}\t{self.txt_password.get()}\t{self.checkbox_var.get()}")
-            f.close()
+            with open("Data.txt", "w") as f:
+                f.write(f"{self.txt_firstname.get()}\t{self.txt_lastname.get()}\t{self.txt_contact.get()}\t{self.txt_email.get()}\t{self.txt_sequrityQuestion.get()}\t{self.txt_securityAnswer.get()}\t{self.txt_password.get()}\t{self.checkbox_var.get()}")
 
         # First_Name = self.txt_firstname.get()
         # Last_Name = self.txt_lastname.get()

@@ -113,10 +113,7 @@ def manually_fill():
                        activebackground="Red", font=('times', 15, ' bold ')).place(x=90, y=50)
 
             def testVal(inStr, acttyp):
-                if acttyp == '1':  # insert
-                    if not inStr.isdigit():
-                        return False
-                return True
+                return bool(acttyp != '1' or inStr.isdigit())
 
             ENR = tk.Label(MFW, text="Enter Enrollment", fg="gray", bg="white",
                            font = ("Goudy old style", 20, "bold"))
@@ -144,9 +141,7 @@ def manually_fill():
             def enter_data_DB():
                 ENROLLMENT = ENR_ENTRY.get()
                 STUDENT = STUDENT_ENTRY.get()
-                if ENROLLMENT=='':
-                    err_screen1()
-                elif STUDENT=='':
+                if ENROLLMENT == '' or STUDENT == '':
                     err_screen1()
                 else:
                     import time
@@ -180,11 +175,8 @@ def manually_fill():
                 root.configure(background='snow')
                 with open(csv_name, newline="") as file:
                     reader = csv.reader(file)
-                    r = 0
-
-                    for col in reader:
-                        c = 0
-                        for row in col:
+                    for r, col in enumerate(reader):
+                        for c, row in enumerate(col):
                             # i've added some styling
                             # dddddd = datetime.datetime.fromtimestamp(time.time()).strftime('%H:%M:00')
                             # lst = [str(i*datetime.timedelta(minutes=1)) for i in range(24*60)]
@@ -197,10 +189,6 @@ def manually_fill():
                             label = tkinter.Label(root, width=15, height=1, fg="black", font=('times new roman', 13, ' bold '),
                                                 bg="lawn green", text=row, relief=tkinter.RIDGE)
                             label.grid(row=r, column=c)
-                                # print(lst[:750])
-                                # print(dddddd)
-                            c += 1
-                        r += 1
                 root.mainloop()
 
             Notifi = tk.Label(MFW, text="CSV created Successfully", bg="lightblue", fg="#d77337", width=33,
@@ -282,9 +270,7 @@ def err_screen1():
 def take_img():
     l1 = txt.get()
     l2 = txt2.get()
-    if l1 == '':
-        err_screen()
-    elif l2 == '':
+    if l1 == '' or l2 == '':
         err_screen()
     else:
         try:
@@ -377,18 +363,18 @@ def subjectchoose():
                             aa = df.loc[df['Enrollment'] == Id]['Name'].values
                             global tt
                             # tt = str(Id) + "-" + aa
-                            
+
                             # En = '15624031' + str(Id)
                             attendance.loc[len(attendance)] = [Id, aa, date, timeStamp]
                             cv2.rectangle(im, (x, y), (x + w, y + h), (0, 260, 0), 7)
                             cv2.putText(im, str(aa), (x + h, y), font, 1, (255, 255, 0,), 4)
-                            
+
 
                         else:
                             Id = 'Unknown'
-                            tt = str(Id)
+                            tt = Id
                             cv2.rectangle(im, (x, y), (x + w, y + h), (0, 25, 255), 7)
-                            cv2.putText(im, str(tt), (x + h, y), font, 1, (0, 25, 255), 4)
+                            cv2.putText(im, tt, (x + h, y), font, 1, (0, 25, 255), 4)
                     if time.time() > future:
                         break
 
@@ -420,7 +406,9 @@ def subjectchoose():
                 except Exception as e:
                     print(e)
 
-                sql = "CREATE TABLE " + DB_Table_name + """
+                sql = (
+                    f"CREATE TABLE {DB_Table_name}"
+                    + """
                 (ID INT NOT NULL AUTO_INCREMENT,
                  ENROLLMENT varchar(100) NOT NULL,
                  NAME VARCHAR(50) NOT NULL,
@@ -429,8 +417,11 @@ def subjectchoose():
                      PRIMARY KEY (ID)
                      );
                 """
+                )
+
                 ####Now enter attendance in Database
-                insert_data =  "INSERT INTO " + DB_Table_name + " (ID,ENROLLMENT,NAME,DATE,TIME) VALUES (0, %s, %s, %s,%s)"
+                insert_data = f"INSERT INTO {DB_Table_name} (ID,ENROLLMENT,NAME,DATE,TIME) VALUES (0, %s, %s, %s,%s)"
+
                 VALUES = (str(Id), str(aa), str(date), str(timeStamp))
                 try:
                     cursor.execute(sql)  ##for create a table
@@ -441,10 +432,10 @@ def subjectchoose():
                 M = 'Attendance filled Successfully'
                 Notifica.configure(text=M, bg="lightblue", fg="#d77337", width=33, font=('times', 15, 'bold'))
                 Notifica.place(x=30, y=270)
-                
+
                 cam.release()
                 cv2.destroyAllWindows()
-              
+
 
                 import csv
                 import tkinter
@@ -454,10 +445,8 @@ def subjectchoose():
                 cs = 'C:/Users/rizwa/Documents/CS570/CS570_AMS/' + fileName
                 with open(cs, newline="") as file:
                     reader = csv.reader(file)
-                    r = 0
-                    for col in reader:
-                        c = 0
-                        for row in col:
+                    for r, col in enumerate(reader):
+                        for c, row in enumerate(col):
                             # i've added some styling
                             # dddddd = datetime.datetime.fromtimestamp(time.time()).strftime('%H:%M:00')
                             # lst = [str(i*datetime.timedelta(minutes=1)) for i in range(24*60)]
@@ -469,9 +458,7 @@ def subjectchoose():
                             label = tkinter.Label(root, width=8, height=1, fg="black", font=('times', 15, ' bold '),
                                                 bg="lawn green", text=row, relief=tkinter.RIDGE)
                             label.grid(row=r, column=c)
-                        
-                            c += 1
-                        r += 1
+
                 root.mainloop()
                 print(attendance)
 
@@ -520,37 +507,26 @@ def admin_panel():
         username = un_entr.get()
         password = pw_entr.get()
 
-        if username == 'ali' :
-            if password == '123':
-                win.destroy()
-                import csv
-                import tkinter
-                root = tkinter.Tk()
-                root.title("Student Details")
-                root.configure(background='snow')
+        if username == 'ali' and password == '123':
+            win.destroy()
+            import csv
+            import tkinter
+            root = tkinter.Tk()
+            root.title("Student Details")
+            root.configure(background='snow')
 
-                cs = 'C:/Users/rizwa/Documents/CS570/CS570_AMS/StudentDetails/StudentDetails.csv'
-                with open(cs, newline="") as file:
-                    reader = csv.reader(file)
-                    r = 0
-
-                    for col in reader:
-                        c = 0
-                        for row in col:
-                            # i've added some styling
-                            label = tkinter.Label(root, width=8, height=1, fg="black", font=('times', 15, ' bold '),
-                                                  bg="lawn green", text=row, relief=tkinter.RIDGE)
-                            label.grid(row=r, column=c)
-                            c += 1
-                        r += 1
-                root.mainloop()
-            else:
-                valid = 'Incorrect ID or Password'
-                Nt.configure(text=valid, bg="lightblue", fg="#d77337", font=('times new roman', 15, 'bold'))
-                Nt.place(x=10, y=360)
-
+            cs = 'C:/Users/rizwa/Documents/CS570/CS570_AMS/StudentDetails/StudentDetails.csv'
+            with open(cs, newline="") as file:
+                reader = csv.reader(file)
+                for r, col in enumerate(reader):
+                    for c, row in enumerate(col):
+                        # i've added some styling
+                        label = tkinter.Label(root, width=8, height=1, fg="black", font=('times', 15, ' bold '),
+                                              bg="lawn green", text=row, relief=tkinter.RIDGE)
+                        label.grid(row=r, column=c)
+            root.mainloop()
         else:
-            valid ='Incorrect ID or Password'
+            valid = 'Incorrect ID or Password'
             Nt.configure(text=valid, bg="lightblue", fg="#d77337", font=('times new roman', 15, 'bold'))
             Nt.place(x=10, y=360)
 
@@ -672,10 +648,7 @@ lbl.place(x=50, y=80)
 
 
 def testVal(inStr,acttyp):
-    if acttyp == '1': #insert
-        if not inStr.isdigit():
-            return False
-    return True
+    return bool(acttyp != '1' or inStr.isdigit())
 
 
 
