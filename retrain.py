@@ -156,7 +156,7 @@ def create_image_lists(image_dir, testing_percentage, validation_percentage):
       continue
     tf.logging.info("Looking for images in '" + dir_name + "'")
     for extension in extensions:
-      file_glob = os.path.join(image_dir, dir_name, '*.' + extension)
+      file_glob = os.path.join(image_dir, dir_name, f'*.{extension}')
       file_list.extend(gfile.Glob(file_glob))
     if not file_list:
       tf.logging.warning('No files found')
@@ -166,8 +166,8 @@ def create_image_lists(image_dir, testing_percentage, validation_percentage):
           'WARNING: Folder has less than 20 images, which may cause issues.')
     elif len(file_list) > MAX_NUM_IMAGES_PER_CLASS:
       tf.logging.warning(
-          'WARNING: Folder {} has more than {} images. Some images will '
-          'never be selected.'.format(dir_name, MAX_NUM_IMAGES_PER_CLASS))
+          f'WARNING: Folder {dir_name} has more than {MAX_NUM_IMAGES_PER_CLASS} images. Some images will never be selected.'
+      )
     label_name = re.sub(r'[^a-z0-9]+', ' ', dir_name.lower())
     training_images = []
     testing_images = []
@@ -235,8 +235,7 @@ def get_image_path(image_lists, label_name, index, image_dir, category):
   mod_index = index % len(category_list)
   base_name = category_list[mod_index]
   sub_dir = label_lists['dir']
-  full_path = os.path.join(image_dir, sub_dir, base_name)
-  return full_path
+  return os.path.join(image_dir, sub_dir, base_name)
 
 
 def get_bottleneck_path(image_lists, label_name, index, bottleneck_dir,
@@ -359,7 +358,7 @@ def create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
                            decoded_image_tensor, resized_input_tensor,
                            bottleneck_tensor):
   """Create a single bottleneck file."""
-  tf.logging.info('Creating bottleneck at ' + bottleneck_path)
+  tf.logging.info(f'Creating bottleneck at {bottleneck_path}')
   image_path = get_image_path(image_lists, label_name, index,
                               image_dir, category)
   if not gfile.Exists(image_path):
@@ -370,8 +369,7 @@ def create_bottleneck_file(bottleneck_path, image_lists, label_name, index,
         sess, image_data, jpeg_data_tensor, decoded_image_tensor,
         resized_input_tensor, bottleneck_tensor)
   except Exception as e:
-    raise RuntimeError('Error during processing file %s (%s)' % (image_path,
-                                                                 str(e)))
+    raise RuntimeError(f'Error during processing file {image_path} ({str(e)})')
   bottleneck_string = ','.join(str(x) for x in bottleneck_values)
   with open(bottleneck_path, 'w') as bottleneck_file:
     bottleneck_file.write(bottleneck_string)
@@ -478,8 +476,7 @@ def cache_bottlenecks(sess, image_lists, image_dir, bottleneck_dir,
 
         how_many_bottlenecks += 1
         if how_many_bottlenecks % 100 == 0:
-          tf.logging.info(
-              str(how_many_bottlenecks) + ' bottleneck files created.')
+          tf.logging.info(f'{how_many_bottlenecks} bottleneck files created.')
 
 
 def get_random_cached_bottlenecks(sess, image_lists, how_many, category,
@@ -518,7 +515,7 @@ def get_random_cached_bottlenecks(sess, image_lists, how_many, category,
   filenames = []
   if how_many >= 0:
     # Retrieve a random sample of bottlenecks.
-    for unused_i in range(how_many):
+    for _ in range(how_many):
       label_index = random.randrange(class_count)
       label_name = list(image_lists.keys())[label_index]
       image_index = random.randrange(MAX_NUM_IMAGES_PER_CLASS + 1)
@@ -582,7 +579,7 @@ def get_random_distorted_bottlenecks(
   class_count = len(image_lists.keys())
   bottlenecks = []
   ground_truths = []
-  for unused_i in range(how_many):
+  for _ in range(how_many):
     label_index = random.randrange(class_count)
     label_name = list(image_lists.keys())[label_index]
     image_index = random.randrange(MAX_NUM_IMAGES_PER_CLASS + 1)
@@ -874,21 +871,19 @@ def create_model_info(architecture):
     input_std = 128
   elif architecture.startswith('mobilenet_'):
     parts = architecture.split('_')
-    if len(parts) != 3 and len(parts) != 4:
+    if len(parts) not in [3, 4]:
       tf.logging.error("Couldn't understand architecture name '%s'",
                        architecture)
       return None
     version_string = parts[1]
-    if (version_string != '1.0' and version_string != '0.75' and
-        version_string != '0.50' and version_string != '0.25'):
+    if version_string not in ['1.0', '0.75', '0.50', '0.25']:
       tf.logging.error(
           """"The Mobilenet version should be '1.0', '0.75', '0.50', or '0.25',
   but found '%s' for architecture '%s'""",
           version_string, architecture)
       return None
     size_string = parts[2]
-    if (size_string != '224' and size_string != '192' and
-        size_string != '160' and size_string != '128'):
+    if size_string not in ['224', '192', '160', '128']:
       tf.logging.error(
           """The Mobilenet input size should be '224', '192', '160', or '128',
  but found '%s' for architecture '%s'""",
@@ -904,18 +899,15 @@ def create_model_info(architecture):
         return None
       is_quantized = True
     data_url = 'http://download.tensorflow.org/models/mobilenet_v1_'
-    data_url += version_string + '_' + size_string + '_frozen.tgz'
+    data_url += f'{version_string}_{size_string}_frozen.tgz'
     bottleneck_tensor_name = 'MobilenetV1/Predictions/Reshape:0'
     bottleneck_tensor_size = 1001
     input_width = int(size_string)
     input_height = int(size_string)
     input_depth = 3
     resized_input_tensor_name = 'input:0'
-    if is_quantized:
-      model_base_name = 'quantized_graph.pb'
-    else:
-      model_base_name = 'frozen_graph.pb'
-    model_dir_name = 'mobilenet_v1_' + version_string + '_' + size_string
+    model_base_name = 'quantized_graph.pb' if is_quantized else 'frozen_graph.pb'
+    model_dir_name = f'mobilenet_v1_{version_string}_{size_string}'
     model_file_name = os.path.join(model_dir_name, model_base_name)
     input_mean = 127.5
     input_std = 127.5
